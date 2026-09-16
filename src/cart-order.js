@@ -22,7 +22,6 @@
     return qty ? `Add to Cart · ${qty}` : 'Add to Cart';
   };
 
-  // Adding an item keeps the customer on the menu so they can build a multi-item order.
   const add = (name, price) => {
     const item = cart.find(x => x.name === name);
     if (item) item.qty += 1;
@@ -74,7 +73,7 @@
           ${['All','Coffee','Matcha','Drinks','Bakery','Brunch'].map(x => `<button type="button" class="${active === x ? 'active' : ''}" data-cat="${x}">${x}</button>`).join('')}
         </div>
         <div class="fia-products">
-          ${products.map((p, i) => `<article class="fia-product" data-category="${p[0]}"><div><small>${p[0]}</small><h3>${p[1]}</h3></div><div class="fia-product-bottom"><strong>${money(p[2])}</strong><button type="button" data-add="${i}">${addButtonLabel(p[1])}</button></div></article>`).join('')}
+          ${products.map((p, i) => `<article class="fia-product" data-category="${p[0]}"><div><small>${p[0]}</small><h3>${p[1]}</h3></div><div class="fia-product-bottom"><strong>${money(p[2])}</strong><div class="fia-product-actions"><div class="fia-card-qty" data-card-qty="${p[1]}" aria-label="Quantity of ${p[1]}"><button type="button" data-card-minus="${p[1]}" aria-label="Decrease ${p[1]}">−</button><span data-card-count="${p[1]}">${quantityFor(p[1])}</span><button type="button" data-card-plus="${p[1]}" aria-label="Increase ${p[1]}">+</button></div><button type="button" data-add="${i}">${addButtonLabel(p[1])}</button></div></div></article>`).join('')}
         </div>
       </div>
       <aside class="fia-cart" aria-hidden="true" aria-label="Shopping cart">
@@ -104,6 +103,9 @@
       const p = products[Number(btn.dataset.add)];
       add(p[1], p[2]);
     }));
+
+    page.querySelectorAll('[data-card-minus]').forEach(btn => btn.addEventListener('click', () => change(btn.dataset.cardMinus, -1)));
+    page.querySelectorAll('[data-card-plus]').forEach(btn => btn.addEventListener('click', () => change(btn.dataset.cardPlus, 1)));
 
     page.querySelector('.fia-cart-trigger').addEventListener('click', openCart);
     page.querySelectorAll('[data-close-cart]').forEach(el => el.addEventListener('click', closeCart));
@@ -142,10 +144,15 @@
     if (badge) badge.textContent = count();
     if (totalEl) totalEl.textContent = money(total());
 
-    // Keep each product card in sync with its current quantity.
     document.querySelectorAll('[data-add]').forEach(button => {
       const product = products[Number(button.dataset.add)];
       if (product) button.textContent = addButtonLabel(product[1]);
+    });
+    document.querySelectorAll('[data-card-count]').forEach(counter => {
+      counter.textContent = quantityFor(counter.dataset.cardCount);
+    });
+    document.querySelectorAll('[data-card-qty]').forEach(control => {
+      control.classList.toggle('has-items', quantityFor(control.dataset.cardQty) > 0);
     });
 
     items.innerHTML = cart.length ? cart.map(item => `
