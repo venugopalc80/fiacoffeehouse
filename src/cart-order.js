@@ -12,18 +12,20 @@
   let cart = [];
   try { cart = JSON.parse(localStorage.getItem('fia-cart') || '[]'); } catch (_) { cart = []; }
   let active = 'All';
-  let mountedFor = null;
 
   const save = () => { localStorage.setItem('fia-cart', JSON.stringify(cart)); updateCartUI(); };
   const total = () => cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const count = () => cart.reduce((sum, item) => sum + item.qty, 0);
+
+  // Adding an item keeps the customer on the menu so they can build a multi-item order.
   const add = (name, price) => {
     const item = cart.find(x => x.name === name);
     if (item) item.qty += 1;
     else cart.push({ name, price, qty: 1 });
     save();
-    openCart();
+    showAddedState(name);
   };
+
   const change = (name, delta) => {
     const item = cart.find(x => x.name === name);
     if (!item) return;
@@ -31,6 +33,18 @@
     if (item.qty <= 0) cart = cart.filter(x => x.name !== name);
     save();
   };
+
+  function showAddedState(name) {
+    const button = [...document.querySelectorAll('[data-add]')].find(btn => products[Number(btn.dataset.add)]?.[1] === name);
+    if (!button) return;
+    const original = button.textContent;
+    button.textContent = 'Added ✓';
+    button.classList.add('is-added');
+    window.setTimeout(() => {
+      button.textContent = original;
+      button.classList.remove('is-added');
+    }, 900);
+  }
 
   function mount() {
     const hash = (window.location.hash || '').replace(/^#/, '').toLowerCase();
@@ -47,7 +61,7 @@
           <div>
             <p class="eyebrow">ONLINE ORDER</p>
             <h2>Choose your favourites.</h2>
-            <p>Browse the FIA menu, add your favourites to your cart and choose a collection time.</p>
+            <p>Browse the FIA menu and add as many favourites as you like. When you're ready, open your cart to check out.</p>
           </div>
           <button class="fia-cart-trigger" type="button" aria-label="Open shopping cart">Cart <span id="fia-cart-count">0</span></button>
         </div>
@@ -80,10 +94,12 @@
       page.querySelectorAll('[data-cat]').forEach(b => b.classList.toggle('active', b === btn));
       page.querySelectorAll('.fia-product').forEach(card => { card.hidden = active !== 'All' && card.dataset.category !== active; });
     }));
+
     page.querySelectorAll('[data-add]').forEach(btn => btn.addEventListener('click', () => {
       const p = products[Number(btn.dataset.add)];
       add(p[1], p[2]);
     }));
+
     page.querySelector('.fia-cart-trigger').addEventListener('click', openCart);
     page.querySelectorAll('[data-close-cart]').forEach(el => el.addEventListener('click', closeCart));
     page.querySelector('#fia-checkout').addEventListener('submit', event => {
@@ -94,7 +110,6 @@
       save();
     });
 
-    mountedFor = page;
     updateCartUI();
   }
 
