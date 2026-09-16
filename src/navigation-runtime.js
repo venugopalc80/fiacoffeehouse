@@ -1,34 +1,35 @@
-// Compatibility navigation bridge for cached/older FIA bundles.
-// The current React source uses the Shell `go` handler directly, but this
-// global keeps older cached bundles from throwing `navigate is not defined`.
+// Small navigation compatibility layer. It is intentionally passive: React owns
+// the current page state. This only provides a safe global for older cached bundles.
 (() => {
   const routes = {
-    Home: '',
-    Menu: 'menu',
-    Gallery: 'gallery',
-    About: 'about',
-    'Visit Us': 'visit-us',
-    'Online Order': 'online-order',
-    'Book a Table': 'book-a-table',
-    Seasonal: 'seasonal',
-    'Gift Cards': 'gift-cards'
+    home: '',
+    menu: 'menu',
+    gallery: 'gallery',
+    about: 'about',
+    'visit us': 'visit-us',
+    'online order': 'online-order',
+    'book a table': 'book-a-table',
+    seasonal: 'seasonal',
+    'gift cards': 'gift-cards'
   };
 
   window.navigate = (label) => {
-    const key = String(label || '').replace(/→/g, '').trim();
+    const key = String(label || '')
+      .replace(/→/g, '')
+      .trim()
+      .toLowerCase();
     const hash = routes[key];
     if (hash === undefined) return false;
 
-    if (window.location.hash.slice(1) !== hash) {
+    // Update the URL only. The React app's hashchange listener is responsible
+    // for rendering the requested page, avoiding competing DOM navigation logic.
+    if (window.location.hash.slice(1).toLowerCase() !== hash) {
       window.location.hash = hash;
     } else {
       window.dispatchEvent(new HashChangeEvent('hashchange'));
     }
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    const nav = document.querySelector('.main-nav');
-    const toggle = document.querySelector('.mobile-toggle');
-    if (nav?.classList.contains('open')) toggle?.click();
+    window.scrollTo({ top: 0, behavior: 'auto' });
     return true;
   };
 })();
