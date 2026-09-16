@@ -1,4 +1,4 @@
-/* FIA hero — final typography pass */
+/* FIA hero — final mobile composition pass */
 .hero{
   min-height:100svh!important;
   height:100svh!important;
@@ -70,20 +70,53 @@
 }
 @media (max-width:640px){
   .hero{
-    min-height:760px!important;
-    height:100svh!important;
-    background-position:58% center!important;
+    min-height:0!important;
+    height:920px!important;
+    max-height:920px!important;
+    background-position:58% 48%!important;
   }
-  .hero-inner{padding:170px 8vw 90px!important}
+  .hero-inner{
+    padding:145px 8vw 90px!important;
+    max-width:100%!important;
+  }
+  .hero .eyebrow{
+    font-size:10px!important;
+    letter-spacing:.23em!important;
+  }
   .hero h1{
     width:auto!important;
     max-width:100%!important;
     white-space:normal!important;
-    font-size:clamp(58px,15vw,78px)!important;
-    line-height:.86!important;
+    font-size:clamp(52px,13.2vw,68px)!important;
+    line-height:.9!important;
+    letter-spacing:-.03em!important;
+    margin:17px 0 22px!important;
   }
-  .hero-copy{max-width:330px!important;font-size:12px!important}
-  .hero .button-row{gap:9px;margin-top:24px}
-  .hero .cream-btn,.hero .ghost-btn{min-width:0;padding:0 16px}
-  .scroll-mark{left:8vw!important;bottom:22px!important}
+  .hero-copy{
+    max-width:315px!important;
+    font-size:12px!important;
+    line-height:1.65!important;
+  }
+  .hero .button-row{
+    gap:10px;
+    margin-top:23px;
+  }
+  .hero .cream-btn,.hero .ghost-btn{
+    min-width:0;
+    padding:0 15px;
+    height:52px;
+    font-size:12px;
+  }
+  .scroll-mark{
+    left:8vw!important;
+    bottom:20px!important;
+    font-size:9px!important;
+  }
+}
+@media (max-width:390px){
+  .hero{height:890px!important;max-height:890px!important}
+  .hero-inner{padding-top:140px!important}
+  .hero h1{font-size:52px!important}
+  .hero-copy{max-width:285px!important}
+  .hero .cream-btn,.hero .ghost-btn{padding:0 12px;font-size:11px}
 }
