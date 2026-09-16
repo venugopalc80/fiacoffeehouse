@@ -1,1 +1,84 @@
-.home-hero{background-image:linear-gradient(90deg,rgba(16,9,7,.78) 0%,rgba(16,9,7,.48) 40%,rgba(16,9,7,.14) 78%),url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=2400&q=92')!important;background-position:center center!important;background-size:cover!important;background-repeat:no-repeat!important}.home-hero:before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,7,5,.18),transparent 35%,rgba(12,7,5,.2));pointer-events:none}.home-hero .hero-content{position:relative;z-index:2}.home-hero:after{border-color:rgba(255,255,255,.32)!important}
+/* FIA hero art direction — full-bleed cinematic coffeehouse hero */
+.hero{
+  min-height:100svh!important;
+  height:100svh!important;
+  max-height:none!important;
+  background-image:
+    linear-gradient(90deg,rgba(10,8,7,.78) 0%,rgba(10,8,7,.57) 34%,rgba(10,8,7,.22) 66%,rgba(10,8,7,.12) 100%),
+    url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=2400&q=92')!important;
+  background-position:center 46%!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  overflow:hidden;
+}
+.hero:after{
+  inset:24px!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+}
+.hero:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg,rgba(8,6,5,.42) 0%,transparent 24%,transparent 70%,rgba(8,6,5,.28) 100%),
+    radial-gradient(circle at 78% 50%,transparent 0%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.3) 100%);
+  pointer-events:none;
+}
+.hero-inner{
+  padding:clamp(180px,27vh,270px) 7.5vw 120px!important;
+  max-width:760px!important;
+}
+.hero .eyebrow{
+  letter-spacing:.28em;
+  opacity:.88;
+}
+.hero h1{
+  max-width:650px;
+  font-size:clamp(68px,8vw,118px)!important;
+  line-height:.82!important;
+  letter-spacing:-.04em!important;
+  margin:20px 0 26px!important;
+}
+.hero-copy{
+  max-width:440px!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+  color:rgba(255,255,255,.82);
+}
+.hero .button-row{margin-top:30px}
+.hero .cream-btn{
+  min-width:132px;
+  background:#f7f0e5;
+  border-color:#f7f0e5;
+}
+.hero .ghost-btn{
+  min-width:142px;
+  border-color:rgba(255,255,255,.62);
+  background:rgba(255,255,255,.04);
+}
+.scroll-mark{
+  left:7.5vw!important;
+  bottom:34px!important;
+  text-transform:uppercase;
+  letter-spacing:.18em!important;
+  opacity:.78;
+}
+@media (max-width:900px){
+  .hero:after{inset:14px!important}
+  .hero{background-position:56% center!important}
+  .hero-inner{padding:190px 8vw 100px!important}
+}
+@media (max-width:640px){
+  .hero{
+    min-height:760px!important;
+    height:100svh!important;
+    background-position:56% center!important;
+  }
+  .hero:after{inset:10px!important}
+  .hero-inner{padding:175px 8vw 90px!important}
+  .hero h1{font-size:clamp(58px,17vw,82px)!important}
+  .hero-copy{max-width:330px!important;font-size:12px!important}
+  .hero .button-row{gap:9px}
+  .hero .cream-btn,.hero .ghost-btn{min-width:0;padding:0 16px}
+  .scroll-mark{left:8vw!important;bottom:22px!important}
+}
