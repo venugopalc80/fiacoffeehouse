@@ -1,0 +1,20 @@
+/* Keep the primary header above every hero/image layer and clickable on touch + desktop. */
+.site-header{
+  z-index:99999!important;
+  pointer-events:auto!important;
+}
+.site-header .brand,
+.site-header .main-nav,
+.site-header .main-nav button,
+.site-header .mobile-toggle{
+  pointer-events:auto!important;
+}
+.site-header .main-nav{
+  position:relative;
+  z-index:100000!important;
+}
+.site-header .main-nav button{
+  position:relative;
+  z-index:100001!important;
+  touch-action:manipulation;
+}
