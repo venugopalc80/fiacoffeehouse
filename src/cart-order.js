@@ -16,6 +16,11 @@
   const save = () => { localStorage.setItem('fia-cart', JSON.stringify(cart)); updateCartUI(); };
   const total = () => cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const count = () => cart.reduce((sum, item) => sum + item.qty, 0);
+  const quantityFor = name => cart.find(item => item.name === name)?.qty || 0;
+  const addButtonLabel = name => {
+    const qty = quantityFor(name);
+    return qty ? `Add to Cart · ${qty}` : 'Add to Cart';
+  };
 
   // Adding an item keeps the customer on the menu so they can build a multi-item order.
   const add = (name, price) => {
@@ -37,11 +42,11 @@
   function showAddedState(name) {
     const button = [...document.querySelectorAll('[data-add]')].find(btn => products[Number(btn.dataset.add)]?.[1] === name);
     if (!button) return;
-    const original = button.textContent;
-    button.textContent = 'Added ✓';
+    const qty = quantityFor(name);
+    button.textContent = `Added ✓ · ${qty}`;
     button.classList.add('is-added');
     window.setTimeout(() => {
-      button.textContent = original;
+      button.textContent = addButtonLabel(name);
       button.classList.remove('is-added');
     }, 900);
   }
@@ -69,7 +74,7 @@
           ${['All','Coffee','Matcha','Drinks','Bakery','Brunch'].map(x => `<button type="button" class="${active === x ? 'active' : ''}" data-cat="${x}">${x}</button>`).join('')}
         </div>
         <div class="fia-products">
-          ${products.map((p, i) => `<article class="fia-product" data-category="${p[0]}"><div><small>${p[0]}</small><h3>${p[1]}</h3></div><div class="fia-product-bottom"><strong>${money(p[2])}</strong><button type="button" data-add="${i}">Add to Cart</button></div></article>`).join('')}
+          ${products.map((p, i) => `<article class="fia-product" data-category="${p[0]}"><div><small>${p[0]}</small><h3>${p[1]}</h3></div><div class="fia-product-bottom"><strong>${money(p[2])}</strong><button type="button" data-add="${i}">${addButtonLabel(p[1])}</button></div></article>`).join('')}
         </div>
       </div>
       <aside class="fia-cart" aria-hidden="true" aria-label="Shopping cart">
@@ -136,6 +141,13 @@
     const totalEl = document.getElementById('fia-cart-total');
     if (badge) badge.textContent = count();
     if (totalEl) totalEl.textContent = money(total());
+
+    // Keep each product card in sync with its current quantity.
+    document.querySelectorAll('[data-add]').forEach(button => {
+      const product = products[Number(button.dataset.add)];
+      if (product) button.textContent = addButtonLabel(product[1]);
+    });
+
     items.innerHTML = cart.length ? cart.map(item => `
       <div class="fia-cart-item">
         <div><strong>${item.name}</strong><small>${money(item.price)} each</small><div class="fia-qty"><button type="button" data-minus="${item.name}" aria-label="Decrease ${item.name}">−</button><span>${item.qty}</span><button type="button" data-plus="${item.name}" aria-label="Increase ${item.name}">+</button></div></div>
