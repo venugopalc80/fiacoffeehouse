@@ -12,8 +12,7 @@
   overflow:hidden;
 }
 .hero:after{
-  inset:24px!important;
-  border:1px solid rgba(255,255,255,.24)!important;
+  display:none!important;
 }
 .hero:before{
   content:'';
@@ -64,7 +63,6 @@
   opacity:.78;
 }
 @media (max-width:900px){
-  .hero:after{inset:14px!important}
   .hero{background-position:56% center!important}
   .hero-inner{padding:190px 8vw 100px!important}
 }
@@ -74,7 +72,6 @@
     height:100svh!important;
     background-position:56% center!important;
   }
-  .hero:after{inset:10px!important}
   .hero-inner{padding:175px 8vw 90px!important}
   .hero h1{font-size:clamp(58px,17vw,82px)!important}
   .hero-copy{max-width:330px!important;font-size:12px!important}
