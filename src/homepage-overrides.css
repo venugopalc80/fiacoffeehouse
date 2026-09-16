@@ -1,0 +1,25 @@
+/* FIA homepage — editorial polish */
+.intro{padding:clamp(90px,9vw,135px) 7vw clamp(85px,8vw,120px)!important;background:#f7f2e9}
+.intro h2{max-width:900px;margin:18px auto 26px!important;font-size:clamp(48px,5.4vw,78px)!important;line-height:.88!important;letter-spacing:-.025em}
+.intro-copy{max-width:570px!important;font-size:11.5px!important;line-height:1.9!important}
+.intro-cards{max-width:1180px;margin:58px auto 0!important;gap:26px!important}
+.intro-cards article{padding-top:16px!important}
+.intro-image{height:clamp(300px,34vw,455px)!important;margin-bottom:17px!important;filter:saturate(.82) contrast(1.03);transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .6s ease}
+.intro-cards article:hover .intro-image{transform:scale(1.015);filter:saturate(.92) contrast(1.04)}
+.intro-cards span{font-size:28px!important}
+.home-feature,.order-teaser{min-height:680px!important}
+.feature-copy,.order-copy{padding:clamp(75px,8vw,120px) clamp(7vw,9vw,130px)!important}
+.feature-copy h2,.order-copy h2{font-size:clamp(56px,5.5vw,84px)!important;line-height:.86!important;letter-spacing:-.025em}
+.feature-copy>p:not(.eyebrow),.order-copy>p:not(.eyebrow){max-width:400px!important;font-size:11.5px!important;line-height:1.9!important}
+.feature-photo,.order-photo{min-height:680px;background-position:center!important;transition:transform .8s ease}
+.home-feature:hover .feature-photo,.order-teaser:hover .order-photo{transform:scale(1.012)}
+.home-seasonal{padding:clamp(85px,8vw,115px) 5.2vw!important}
+.section-title h2{font-size:clamp(50px,5vw,74px)!important}
+.seasonal-strip{gap:18px!important;margin-top:48px!important}
+.seasonal-strip article{overflow:hidden}
+.seasonal-strip img{height:270px!important;transition:transform .7s ease}
+.seasonal-strip article:hover img{transform:scale(1.025)}
+.seasonal-strip article>div{padding:23px!important}
+.seasonal-strip h3{font-size:30px!important}
+@media(max-width:900px){.intro-cards{grid-template-columns:1fr!important}.home-feature,.order-teaser{grid-template-columns:1fr!important}.feature-photo,.order-photo{min-height:520px}.feature-copy,.order-copy{min-height:480px}}
+@media(max-width:640px){.intro{text-align:left!important}.intro h2{margin-left:0!important}.intro-copy{margin-left:0!important}.intro-cards{margin-top:42px!important}.intro-image{height:330px!important}.feature-copy,.order-copy{padding:75px 8vw!important}.feature-photo,.order-photo{min-height:430px}.home-seasonal{padding:75px 8vw!important}.section-title{display:block}.section-title .text-link{margin-top:25px}.seasonal-strip{grid-template-columns:1fr!important}.seasonal-strip img{height:280px!important}}
